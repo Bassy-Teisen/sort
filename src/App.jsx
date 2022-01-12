@@ -1,45 +1,30 @@
 import { useState } from 'react'
-import logo from './logo.svg'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
+import Home from './components/Home'
+import Nav from './components/Nav'
+import NewSong from './components/NewSong'
+import SongSelection from './components/SongSelection'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selections, setSelections] = useState(["Despacito", "Summer Of 69", "Hotel California"])
+
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <BrowserRouter>
+        <Nav />
+        <h1>Sort</h1>
+        <Routes>
+          <Route path="/" element={<Home />} />          
+          <Route path="/selection" element={<SongSelection selections={selections}/>} />          
+          <Route path="/song/new/:song" element={<NewSong />} />
+          <Route path="*" element={ <h4>Page not found!</h4> } />          
+        </Routes>  
+    </BrowserRouter>
   )
 }
 
 export default App
+
+
+// `["Despacito", "Summer Of 69", "Hotel California", "Single Ladies", "If I were a boy", "Run the World", "Waka Waka" ]`
